@@ -1,4 +1,4 @@
-name: Build and deploy CineForge Studio
+name: Build CineForge Studio
 
 on:
   push:
@@ -9,11 +9,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: cineforge-build
   cancel-in-progress: true
 
 jobs:
@@ -26,27 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Install dependencies
         run: npm install
       - name: Build app
         run: npm run build
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
