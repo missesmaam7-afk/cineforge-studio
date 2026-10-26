@@ -117,7 +117,7 @@ export async function renderTimelineToMp4(args: {
     onProgress('MP4 encoder load ho raha hai…')
     const ffmpeg = new FFmpeg()
     const base = 'https://unpkg.com/@ffmpeg/core@0.12.10/dist/umd'
-    await ffmpeg.load({ coreURL: await toBlobURL(base + '/ffmpeg-core.js','text/javascript'), wasmURL: base + '/ffmpeg-core.wasm' })
+    await ffmpeg.load({ coreURL: await toBlobURL(base + '/ffmpeg-core.js','text/javascript'), wasmURL: await toBlobURL(base + '/ffmpeg-core.wasm','application/wasm') })
     await ffmpeg.writeFile('input.webm', new Uint8Array(await webm.arrayBuffer()))
     onProgress('MP4 encode ho raha hai…')
     await ffmpeg.exec(['-i','input.webm','-c:v','libx264','-preset','ultrafast','-pix_fmt','yuv420p','-movflags','+faststart','-c:a','aac','-b:a','192k','output.mp4'])
