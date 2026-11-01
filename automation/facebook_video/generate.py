@@ -19,9 +19,9 @@ import requests
 
 BASE = "https://gen.pollinations.ai"
 API_KEY = os.getenv("POLLINATIONS_API_KEY", "").strip()
-IMAGE_MODEL = os.getenv("POLLINATIONS_IMAGE_MODEL", "black-forest-labs/flux.1-schnell").strip()
+IMAGE_MODEL = os.getenv("POLLINATIONS_IMAGE_MODEL", "").strip() or "black-forest-labs/flux.1-schnell"
 VIDEO_MODEL = os.getenv("POLLINATIONS_VIDEO_MODEL", "").strip()
-TEXT_MODEL = os.getenv("POLLINATIONS_TEXT_MODEL", "openai/gpt-5.4-nano").strip()
+TEXT_MODEL = os.getenv("POLLINATIONS_TEXT_MODEL", "").strip() or "openai/gpt-5.4-nano"
 THEME = os.getenv("CONTENT_THEME", "").strip() or "A positive, engaging, family-friendly Hindi social media short"
 VIDEO_PATH = Path(os.getenv("VIDEO_OUTPUT", "output/facebook-video.mp4"))
 META_PATH = Path(os.getenv("METADATA_OUTPUT", "output/post.json"))
